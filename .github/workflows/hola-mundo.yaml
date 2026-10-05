@@ -7,7 +7,8 @@ on:
 
 jobs:
   saludar:
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: decir hola
         run: echo "Hola Mundo"
