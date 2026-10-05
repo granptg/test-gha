@@ -12,3 +12,58 @@ jobs:
     steps:
       - name: decir hola
         run: echo "Hola Mundo"
+
+
+  info-maquina:
+    runs-on: self-hosted   # o ubuntu-latest
+    needs: saludar
+    steps:
+      - name: Sistema
+        run: |
+          echo "Hostname: $(hostname)"
+          uname -a
+          cat /etc/os-release | grep PRETTY_NAME
+
+      - name: CPU
+        run: |
+          echo "Núcleos: $(nproc)"
+          lscpu | grep -E "Model name|Architecture|Thread|Core|Socket"
+
+      - name: Memoria RAM
+        run: free -h
+
+      - name: Disco
+        run: df -h
+
+      - name: Carga y tiempo encendido
+        run: uptime
+
+      - name: Procesos que más consumen
+        run: ps aux --sort=-%cpu | head -n 10
+
+  info-maquina2:
+    runs-on: ubuntu-latest   # o ubuntu-latest
+    needs: info-maquina
+    steps:
+      - name: Sistema
+        run: |
+          echo "Hostname: $(hostname)"
+          uname -a
+          cat /etc/os-release | grep PRETTY_NAME
+
+      - name: CPU
+        run: |
+          echo "Núcleos: $(nproc)"
+          lscpu | grep -E "Model name|Architecture|Thread|Core|Socket"
+
+      - name: Memoria RAM
+        run: free -h
+
+      - name: Disco
+        run: df -h
+
+      - name: Carga y tiempo encendido
+        run: uptime
+
+      - name: Procesos que más consumen
+        run: ps aux --sort=-%cpu | head -n 10
